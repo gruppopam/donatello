@@ -105,7 +105,7 @@ class ShellPromptCommand(sublime_plugin.WindowCommand):
     def run(self, match="defalt"):
         cwd = cwd_for_window(self.window)
         possible_command = ""
-        file_path = window.active_view().file_name()
+        file_path = self.window.active_view().file_name()
         pattern = ".*/([^/]+)/(tests)/(.*)"
         matches=re.search(pattern, file_path)
         if matches:
