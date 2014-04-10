@@ -1,4 +1,4 @@
-import os.path, pipes, re, subprocess, tempfile
+import os.path, pipes, re, subprocess, tempfile, fnmatch
 import sublime, sublime_plugin
 from functools import partial
 
