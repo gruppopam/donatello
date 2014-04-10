@@ -115,7 +115,7 @@ class ShellPromptCommand(sublime_plugin.WindowCommand):
     def run(self, match="defalt"):
         possible_command = cmd_from_open_file()
         cwd = cwd_for_window(self.window)
-        if match == "default" || possible_command == "":
+        if match == "default" or possible_command == "":
             if not hasattr(self, 'cmd_history'):
                 self.cmd_history = []
             on_done = partial(self.on_done, cwd)
