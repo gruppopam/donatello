@@ -123,7 +123,7 @@ class ShellPromptCommand(sublime_plugin.WindowCommand):
             for (setting, value) in list(settings().get('input_widget').items()):
                 inputview.settings().set(setting, value)
         else:
-            on_done(cwd, possible_command)
+            self.on_done(cwd, possible_command)
 
     def on_done(self, cwd, cmd_str):
         cmd = parse_cmd(cmd_str)
