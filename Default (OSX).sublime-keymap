@@ -1,7 +1,7 @@
 [
 	{"keys": ["super+shift+c"], "command": "shell_prompt"},
 	{"keys": ["shift+f10"], "command": "shell_prompt", "args": {
-		"match":"r-test"
+		"match":["r-test"]
 	} },
 	{"keys": ["shift+super+alt+c"], "command": "subprocess_in_cwd", "args": {
 		// This AppleScript requires the access for assistive
