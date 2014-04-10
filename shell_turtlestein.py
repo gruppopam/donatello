@@ -115,8 +115,15 @@ class ShellPromptCommand(sublime_plugin.WindowCommand):
     """
     def run(self, match="defalt"):
         cwd = cwd_for_window(self.window)
-        print(cwd)
-        possible_command = cmd_from_open_file(self.window)
+       
+        possible_command = ""
+        file_path = window.active_view().file_name()
+        pattern = ".*/([^/]+)/(tests)/(.*)"
+        matches=re.search(pattern, file_path)
+        if matches:
+            module=matches.group(1)
+            fil=matches.group(3)
+            possible_command = "rake 'test_only[{0}, {1}]'".format(module,fil)
         if match == "default" or possible_command == "":
             if not hasattr(self, 'cmd_history'):
                 self.cmd_history = []
