@@ -113,7 +113,7 @@ class ShellPromptCommand(sublime_plugin.WindowCommand):
     Prompt the user for a shell command to run in the window's directory
     """
     def run(self, match="defalt"):
-        possible_command = cmd_from_open_file()
+        possible_command = self.cmd_from_open_file()
         cwd = cwd_for_window(self.window)
         if match == "default" or possible_command == "":
             if not hasattr(self, 'cmd_history'):
