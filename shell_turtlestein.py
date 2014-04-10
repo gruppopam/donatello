@@ -104,8 +104,9 @@ def cmd_from_open_file(window):
     if matches:
         module=matches.group(1)
         fil=matches.group(3)
-        return("rake 'test_only[{0}, {1}]'".format(module,fil))
-    return("")
+        return "rake 'test_only[{0}, {1}]'".format(module,fil)
+    else:
+        return ""
 
 class ShellPromptCommand(sublime_plugin.WindowCommand):
 
@@ -113,8 +114,9 @@ class ShellPromptCommand(sublime_plugin.WindowCommand):
     Prompt the user for a shell command to run in the window's directory
     """
     def run(self, match="defalt"):
-        possible_command = cmd_from_open_file(self.window)
         cwd = cwd_for_window(self.window)
+        print(cwd)
+        possible_command = cmd_from_open_file(self.window)
         if match == "default" or possible_command == "":
             if not hasattr(self, 'cmd_history'):
                 self.cmd_history = []
