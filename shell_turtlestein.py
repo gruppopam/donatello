@@ -97,23 +97,23 @@ def show_in_output_panel(message):
     panel.end_edit(edit)
     window.run_command('show_panel', {'panel': 'output.' + panel_name})
 
+def cmd_from_open_file(window):
+    file_path = window.active_view().file_name()
+    pattern = ".*/([^/]+)/(tests)/(.*)"
+    matches=re.search(pattern, file_path)
+    if matches:
+        module=matches.group(1)
+        fil=matches.group(3)
+        return("rake 'test_only[{0}, {1}]'".format(module,fil))
+    return("")
 
 class ShellPromptCommand(sublime_plugin.WindowCommand):
-    def cmd_from_open_file(self):
-        file_path = self.window.active_view().file_name()
-        pattern = ".*/([^/]+)/(tests)/(.*)"
-        matches=re.search(pattern, file_path)
-        if matches:
-            module=matches.group(1)
-            fil=matches.group(3)
-            return("rake 'test_only[{0}, {1}]'".format(module,fil))
-        return("")
 
     """
     Prompt the user for a shell command to run in the window's directory
     """
     def run(self, match="defalt"):
-        possible_command = self.cmd_from_open_file()
+        possible_command = cmd_from_open_file(self.window)
         cwd = cwd_for_window(self.window)
         if match == "default" or possible_command == "":
             if not hasattr(self, 'cmd_history'):
