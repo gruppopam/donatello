@@ -99,20 +99,34 @@ def show_in_output_panel(message):
 
 
 class ShellPromptCommand(sublime_plugin.WindowCommand):
+    def cmd_from_open_file(self):
+        file_path = self.window.active_view().file_name()
+        pattern = ".*/([^/]+)/(tests)/(.*)"
+        matches=re.search(pattern, file_path)
+        if matches:
+            module=matches.group(1)
+            fil=matches.group(3)
+            return("rake 'test_only[{0}, {1}]'".format(module,fil))
+        return("")
+
     """
     Prompt the user for a shell command to run in the window's directory
     """
-    def run(self):
-        if not hasattr(self, 'cmd_history'):
-            self.cmd_history = []
+    def run(self, match="defalt"):
+        possible_command = cmd_from_open_file()
         cwd = cwd_for_window(self.window)
-        on_done = partial(self.on_done, cwd)
-        inputview = show_input_panel_with_readline(self.window,
-                                                   abbreviate_user(cwd) + " $",
-                                                   self.cmd_history,
-                                                   on_done, None, None)
-        for (setting, value) in list(settings().get('input_widget').items()):
-            inputview.settings().set(setting, value)
+        if match == "default" || possible_command == "":
+            if not hasattr(self, 'cmd_history'):
+                self.cmd_history = []
+            on_done = partial(self.on_done, cwd)
+            inputview = show_input_panel_with_readline(self.window,
+                                                       abbreviate_user(cwd) + " $",
+                                                       self.cmd_history,
+                                                       on_done, None, None)
+            for (setting, value) in list(settings().get('input_widget').items()):
+                inputview.settings().set(setting, value)
+        else:
+            on_done(cwd, possible_command)
 
     def on_done(self, cwd, cmd_str):
         cmd = parse_cmd(cmd_str)
