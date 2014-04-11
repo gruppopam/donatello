@@ -103,7 +103,7 @@ def command_from_file_path(file_path):
     if matches:
         module=matches.group(1)
         fil=matches.group(3)
-        return possible_command = "rake 'test_only[{0}, {1}]'".format(module,fil)
+        return "rake 'test_only[{0}, {1}]'".format(module,fil)
 
 def get_tmp_file_name(p):
     return(os.path.join(os.path.dirname(p) , ".tmp."+os.path.basename(p)))
