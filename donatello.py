@@ -40,7 +40,7 @@ def abbreviate_user(path):
 
 
 def settings():
-    return sublime.load_settings('Shell Turtlestein.sublime-settings')
+    return sublime.load_settings('donatello.sublime-settings')
 
 
 def cmd_settings(cmd):
