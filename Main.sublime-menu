@@ -12,17 +12,17 @@
                 "children":
                 [
                     {
-                        "caption": "Shell Turtlestein",
+                        "caption": "Donatello",
                         "children":
                         [
                             {
                                 "command": "open_file", 
-                                "args": {"file": "${packages}/Shell Turtlestein/Shell Turtlestein.sublime-settings"},
+                                "args": {"file": "${packages}/Donatello/Donatello.sublime-settings"},
                                 "caption": "Settings – Default"
                             },
                             {
                                 "command": "open_file", 
-                                "args": {"file": "${packages}/User/Shell Turtlestein.sublime-settings"},
+                                "args": {"file": "${packages}/User/Donatello.sublime-settings"},
                                 "caption": "Settings – User"
                             },
                             { "caption": "-" }
