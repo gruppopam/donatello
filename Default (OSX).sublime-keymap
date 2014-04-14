@@ -8,5 +8,11 @@
 		"args": {
 			"match": "single_test"
 		}
+	},{
+		"keys":["f10"],
+		"command":"shell_prompt",
+		"args": {
+			"match": "repeat_last_test"
+		}
 	}
 ]

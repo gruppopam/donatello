@@ -42,6 +42,9 @@ def abbreviate_user(path):
 def settings():
     return sublime.load_settings('donatello.sublime-settings')
 
+def save_settings():
+    return sublime.save_settings('donatello.sublime-settings')
+
 
 def cmd_settings(cmd):
     """
@@ -124,24 +127,40 @@ class ShellPromptCommand(sublime_plugin.WindowCommand):
     """
     def run(self, match="all"):
         cwd = cwd_for_window(self.window)
-        if match == "all":
-            file_path = self.window.active_view().file_name()
+        view = self.window.active_view()
+        sels = [sel.a for sel in view.sel()]
+        file_name = view.file_name()
+
+        if match == "repeat_last_test":
+            sels=settings().get("selections",None)
+            file_name = settings().get("last_test_file_path",None)
+            match=settings().get("match",None)
+            if match==None:
+                return
+
+        if match=="single_test":
+            file_path = self.run_single(sels,file_name)
         else:
-            file_path = self.run_single();
+            file_path = file_name
         if file_path==None:
             return
         possible_command = command_from_file_path(file_path)
         if possible_command == None:
             return
+        
+        settings().set("selections",sels)
+        settings().set("last_test_file_path",file_name)
+        print("match")
+        settings().set("match",match)
+        save_settings()
+
         self.on_done(cwd, possible_command)
 
-    def run_single(self):
-        view = self.window.active_view()
-        file_name=view.file_name()
+    def run_single(self,sels,file_name):
         if not valid_test_file(file_name):
             print("not valid test file")
             return
-        test_code=self.slice_and_dice(file_name,view.sel())
+        test_code=self.slice_and_dice(file_name,sels)
         if test_code==None:
             print("no tests in current file")
             return
@@ -162,7 +181,7 @@ class ShellPromptCommand(sublime_plugin.WindowCommand):
             test_location=test_indices[0]
             test_loc_index=0
             for x in test_indices[1:]:
-                if x > sel.a:
+                if x > sel:
                     break
                 test_location = x
         return (text[0:test_indices[0]])+"\n"+(text[test_location:x])
