@@ -8,6 +8,13 @@ index={}
 matches_from_index = []
 selected_word = ""
 
+class Reindexer(sublime_plugin.EventListener): 
+    def on_post_save(self, view):  
+        print("Rebuilding index")
+        fs=getallfiles(cwd_for_window(sublime.active_window()))
+        for f in fs:
+            build_index(f)    
+
 class TheNavigatorCommand(sublime_plugin.WindowCommand):
     def run(self):
         global matches_from_index
