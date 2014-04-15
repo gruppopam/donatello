@@ -10,7 +10,9 @@ selected_word = ""
 
 class Reindexer(sublime_plugin.EventListener): 
     def on_post_save(self, view):  
+        global index
         print("Rebuilding index")
+        index.clear()
         fs=getallfiles(cwd_for_window(sublime.active_window()))
         for f in fs:
             build_index(f)    
