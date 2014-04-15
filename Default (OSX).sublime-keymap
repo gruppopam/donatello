@@ -14,5 +14,8 @@
 		"args": {
 			"match": "repeat_last_test"
 		}
+	},{
+		"keys":["f4"],
+		"command":"the_navigator"
 	}
 ]
