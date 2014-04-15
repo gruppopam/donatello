@@ -15,7 +15,7 @@
 			"match": "repeat_last_test"
 		}
 	},{
-		"keys":["f4"],
+		"keys":["shift+enter"],
 		"command":"the_navigator"
 	}
 ]
