@@ -105,7 +105,7 @@ class ShellPromptCommand(sublime_plugin.WindowCommand):
         view = self.window.active_view()
         sels = [sel.a for sel in view.sel()]
         file_name = view.file_name()
-
+        view.run_command('save')
         if match == "repeat_last_test":
             sels=settings().get("selections",None)
             file_name = settings().get("last_test_file_path",None)
