@@ -84,7 +84,7 @@ def command_from_file_path(file_path):
         return "rake 'test_only[{0}, {1}]'".format(module,fil)
 
 def get_tmp_file_name(p):
-    return(os.path.join(os.path.dirname(p) , ".tmp."+os.path.basename(p)))
+    return(os.path.join(os.path.dirname(p) , "_tmp_"+os.path.basename(p)))
 
 def valid_test_file(p):
     file_name=os.path.basename(p)
